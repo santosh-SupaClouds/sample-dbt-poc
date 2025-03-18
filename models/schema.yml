@@ -34,4 +34,11 @@ models:
         tests:
           - unique
           - not_null
-      -
+      - name: total_users
+        description: "Total number of users in the country"
+      - name: avg_salary
+        description: "Average salary in the country"
+      - name: median_salary
+        description: "Median salary in the country"
+      - name: total_salary
+        description: "Sum of all salaries in the country"

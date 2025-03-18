@@ -1,8 +1,8 @@
-name: 'userdata_transformation'
+name: 'databricks_transformation'
 version: '1.0.0'
 config-version: 2
 
-profile: 'userdata_transformation'
+profile: 'databricks_transformation'  # This should match the profile name in profiles.yml
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -17,7 +17,7 @@ clean-targets:
   - "dbt_packages"
 
 models:
-  userdata_transformation:
+  databricks_transformation:
     staging:
       +materialized: view
     intermediate:

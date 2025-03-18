@@ -3,12 +3,14 @@ version: 2
 sources:
   - name: s3_data
     description: "Parquet files stored in S3"
+    database: sample-poc
     tables:
       - name: userdata
         description: "User data in parquet format"
         external:
-          location: "s3://{{ env_var('S3_BUCKET_NAME') }}/{{ env_var('S3_PATH_PREFIX') }}"
+          location: "s3://test-kr9948/sample_dbt/"
           file_format: parquet
+          pattern: "*userdata*.parquet" 
         columns:
           - name: registration_dttm
             description: "Registration timestamp"

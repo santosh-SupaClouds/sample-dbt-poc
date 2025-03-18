@@ -1,0 +1,17 @@
+databricks_transformation:
+  target: dev
+  outputs:
+    dev:
+      type: databricks
+      catalog: sample-poc
+      schema: default
+      host: your_host
+      http_path: /sql/1.0/warehouses/your_host_id
+      token: your_databricks_token
+    prod:
+      type: databricks
+      catalog: sample-poc
+      schema: default
+      host: your_host
+      http_path: /sql/1.0/warehouses/your_host_id
+      token: your_databricks_token

@@ -1,8 +1,8 @@
 {{
     config(
         materialized='table',
-        catalog='main',
-        schema='analytics'
+        catalog='sample-poc',
+        schema='default'
     )
 }}
 
