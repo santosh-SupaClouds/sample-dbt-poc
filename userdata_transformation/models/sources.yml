@@ -7,7 +7,7 @@ sources:
       - name: userdata
         description: "User data in parquet format"
         external:
-          location: "s3://your-bucket-name/path/to/userdata/"
+          location: "s3://{{ env_var('S3_BUCKET_NAME') }}/{{ env_var('S3_PATH_PREFIX') }}"
           file_format: parquet
         columns:
           - name: registration_dttm
