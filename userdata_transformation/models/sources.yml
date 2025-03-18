@@ -1,0 +1,51 @@
+version: 2
+
+sources:
+  - name: s3_data
+    description: "Parquet files stored in S3"
+    tables:
+      - name: userdata
+        description: "User data in parquet format"
+        external:
+          location: "s3://your-bucket-name/path/to/userdata/"
+          file_format: parquet
+        columns:
+          - name: registration_dttm
+            description: "Registration timestamp"
+            data_type: timestamp
+          - name: id
+            description: "User ID"
+            data_type: int
+          - name: first_name
+            description: "User's first name"
+            data_type: string
+          - name: last_name
+            description: "User's last name"
+            data_type: string
+          - name: email
+            description: "User's email address"
+            data_type: string
+          - name: gender
+            description: "User's gender"
+            data_type: string
+          - name: ip_address
+            description: "User's IP address"
+            data_type: string
+          - name: cc
+            description: "Credit card information"
+            data_type: string
+          - name: country
+            description: "User's country"
+            data_type: string
+          - name: birthdate
+            description: "User's birthdate"
+            data_type: string
+          - name: salary
+            description: "User's salary"
+            data_type: double
+          - name: title
+            description: "User's job title"
+            data_type: string
+          - name: comments
+            description: "Additional comments"
+            data_type: string

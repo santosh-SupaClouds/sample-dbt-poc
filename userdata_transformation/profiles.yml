@@ -1,0 +1,27 @@
+# This file uses environment variables from .env
+# Use the load_env.sh script to load them before running dbt
+
+userdata_transformation:
+  target: dev
+  outputs:
+    dev:
+      type: databricks
+      schema: "{{ env_var('DBT_DATABRICKS_SCHEMA_DEV', 'default') }}"
+      host: "{{ env_var('DBT_DATABRICKS_HOST') }}"
+      http_path: "{{ env_var('DBT_DATABRICKS_HTTP_PATH') }}"
+      token: "{{ env_var('DBT_DATABRICKS_TOKEN') }}"
+      threads: "{{ env_var('DBT_DATABRICKS_THREADS_DEV', 4) | int }}"
+    test:
+      type: databricks
+      schema: "{{ env_var('DBT_DATABRICKS_SCHEMA_TEST', 'test') }}"
+      host: "{{ env_var('DBT_DATABRICKS_HOST') }}"
+      http_path: "{{ env_var('DBT_DATABRICKS_HTTP_PATH') }}"
+      token: "{{ env_var('DBT_DATABRICKS_TOKEN') }}"
+      threads: "{{ env_var('DBT_DATABRICKS_THREADS_TEST', 2) | int }}"
+    prod:
+      type: databricks
+      schema: "{{ env_var('DBT_DATABRICKS_SCHEMA_PROD', 'prod') }}"
+      host: "{{ env_var('DBT_DATABRICKS_HOST') }}"
+      http_path: "{{ env_var('DBT_DATABRICKS_HTTP_PATH') }}"
+      token: "{{ env_var('DBT_DATABRICKS_TOKEN') }}"
+      threads: "{{ env_var('DBT_DATABRICKS_THREADS_PROD', 8) | int }}"
