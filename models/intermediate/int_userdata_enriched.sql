@@ -4,21 +4,30 @@
     )
 }}
 
-with userdata as (
-    select * from {{ ref('stg_userdata') }}
+with source as (
+    select * from {{source('s3_data', 'userdata')}}
+
 ),
 
-enriched as (
+cleaned as (
     select
-        *,
-        extract(year from current_date()) - extract(year from birthdate) as age,
-        case
-            when salary < 50000 then 'Low'
-            when salary between 50000 and 100000 then 'Medium'
-            when salary > 100000 then 'High'
-            else 'Unknown'
-        end as salary_bracket
-    from userdata
+        registration_dttm,
+        id,
+        first_name,
+        last_name,
+        email,
+        gender,
+        ip_address,
+        cc,
+        country,
+        --try_cast(birthdate as date) as birthdate,
+       -- birthdate::date as birthdate,
+        {{ cast_to_date('birthdate') }} AS birthdate,
+        salary,
+        title,
+        comments
+    from source
+    where country is not null
 )
 
-select * from enriched
+select * from cleaned

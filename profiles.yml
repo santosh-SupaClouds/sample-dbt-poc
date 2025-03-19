@@ -5,13 +5,45 @@ databricks_transformation:
       type: databricks
       catalog: sample-poc
       schema: default
-      host: your_host
-      http_path: /sql/1.0/warehouses/your_host_id
-      token: your_databricks_token
+      host: host
+      http_path: /sql/1.0/warehouses/test
+      token: test
+      threads: 4
+      endpoint: sql
+      method: http
+
     prod:
       type: databricks
       catalog: sample-poc
       schema: default
-      host: your_host
-      http_path: /sql/1.0/warehouses/your_host_id
-      token: your_databricks_token
+      host: host
+      http_path: /sql/1.0/warehouses/test
+      token: test
+      threads: 4
+      endpoint: sql
+      method: http
+
+redshift_transformation:
+  target: dev
+  outputs:
+    dev:
+      type: redshift
+      host: your-redshift-cluster.us-east-1.redshift.amazonaws.com
+      user: your_user
+      password: your_password
+      port: 5439
+      dbname: dev_db
+      schema: public
+      threads: 4
+      method: database
+
+    prod:
+      type: redshift
+      host: your-redshift-cluster.us-east-1.redshift.amazonaws.com
+      user: your_user
+      password: your_password
+      port: 5439
+      dbname: prod_db
+      schema: public
+      threads: 4
+      method: database

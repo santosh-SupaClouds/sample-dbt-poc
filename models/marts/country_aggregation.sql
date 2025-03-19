@@ -1,11 +1,11 @@
 {{
     config(
-        materialized='table',
-        catalog='sample-poc',
-        schema='default'
+        materialized='table'
     )
 }}
-
+--materialized='table'
+--catalog='sample-poc',
+--schema='default'
 with user_data as (
     select * from {{ ref('int_userdata_enriched') }}
 ),
@@ -17,7 +17,9 @@ country_agg as (
         avg(salary) as avg_salary,
         min(salary) as min_salary,
         max(salary) as max_salary,
-        median(salary) as median_salary,
+       -- median(salary) as median_salary,
+      -- percentile_cont(0.5) WITHIN GROUP (ORDER BY salary) AS median_salary,
+         {{ median_salary('salary') }} AS median_salary,
         sum(salary) as total_salary,
         count(case when gender = 'Male' then 1 end) as male_count,
         count(case when gender = 'Female' then 1 end) as female_count,
@@ -43,6 +45,9 @@ select
     low_salary_count,
     medium_salary_count,
     high_salary_count,
-    current_timestamp() as processed_at
+   -- current_timestamp() as processed_at
+  -- CURRENT_TIMESTAMP AS processed_at
+   {{ current_timestamp() }} AS processed_at
+
 from country_agg
 order by total_users desc
