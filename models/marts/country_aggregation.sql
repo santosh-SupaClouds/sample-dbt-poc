@@ -1,8 +1,13 @@
 {{
     config(
         materialized='table',
-        catalog='sample-poc',
-        schema='default'
+        file_format='iceberg',
+        location="s3://test-kr9948/sample_dbt/iceberg-output/country_aggregation",
+        tblproperties={
+            "write.format.default": "parquet",
+            "write.metadata.compression-codec": "gzip",
+            "write.parquet.compression-codec": "snappy"
+        }
     )
 }}
 
@@ -17,11 +22,11 @@ country_agg as (
         avg(salary) as avg_salary,
         min(salary) as min_salary,
         max(salary) as max_salary,
-        median(salary) as median_salary,
+        {{ median_salary('salary') }} AS median_salary,
         sum(salary) as total_salary,
         count(case when gender = 'Male' then 1 end) as male_count,
         count(case when gender = 'Female' then 1 end) as female_count,
-        avg(age) as avg_age,
+        avg({{ calculate_age('birthdate') }}) as avg_age,
         count(case when salary_bracket = 'Low' then 1 end) as low_salary_count,
         count(case when salary_bracket = 'Medium' then 1 end) as medium_salary_count,
         count(case when salary_bracket = 'High' then 1 end) as high_salary_count
@@ -43,6 +48,6 @@ select
     low_salary_count,
     medium_salary_count,
     high_salary_count,
-    current_timestamp() as processed_at
+    {{ current_timestamp() }} AS processed_at
 from country_agg
 order by total_users desc

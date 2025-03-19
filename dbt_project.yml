@@ -24,3 +24,5 @@ models:
       +materialized: view
     marts:
       +materialized: table
+      +file_format: iceberg  # Specify Iceberg format for marts layer
+      +location_root: "s3://test-kr9948/sample_dbt/iceberg-output/" # Update with your S3 bucket path
