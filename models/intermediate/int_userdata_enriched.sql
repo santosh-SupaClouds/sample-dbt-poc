@@ -5,11 +5,10 @@
 }}
 
 with source as (
-    select * from {{source('s3_data', 'userdata')}}
-
+    select * from {{ ref('stg_userdata') }}
 ),
 
-cleaned as (
+enriched as (
     select
         registration_dttm,
         id,
@@ -20,14 +19,19 @@ cleaned as (
         ip_address,
         cc,
         country,
-        --try_cast(birthdate as date) as birthdate,
-       -- birthdate::date as birthdate,
-        {{ cast_to_date('birthdate') }} AS birthdate,
+        birthdate,
         salary,
+        {{ calculate_age('birthdate') }} as age,
         title,
-        comments
+        comments,
+        case 
+            when salary < 50000 then 'Low'
+            when salary between 50000 and 100000 then 'Medium'
+            when salary > 100000 then 'High'
+            else 'Unknown'
+        end as salary_bracket
     from source
     where country is not null
 )
 
-select * from cleaned
+select * from enriched

@@ -7,7 +7,7 @@ databricks_transformation:
       schema: default
       host: host
       http_path: /sql/1.0/warehouses/test
-      token: test
+      token: token
       threads: 4
       endpoint: sql
       method: http
@@ -28,15 +28,15 @@ redshift_transformation:
   outputs:
     dev:
       type: redshift
-      host: your-redshift-cluster.us-east-1.redshift.amazonaws.com
-      user: your_user
-      password: your_password
+      host: cluster.redshift.amazonaws.com
+      user: user
+      password: password
       port: 5439
-      dbname: dev_db
+      dbname: dev
       schema: public
       threads: 4
       method: database
-
+ 
     prod:
       type: redshift
       host: your-redshift-cluster.us-east-1.redshift.amazonaws.com
