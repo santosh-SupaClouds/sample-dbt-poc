@@ -1,5 +1,4 @@
 from airflow import DAG
-from airflow.providers.dbt.cloud.operators.dbt import DbtCloudRunJobOperator
 from datetime import datetime, timedelta
 
 default_args = {
@@ -12,7 +11,7 @@ default_args = {
 }
 
 dag = DAG(
-    'dbt_userdata_transformation',
+    'dbt_databricks_transformation',
     default_args=default_args,
     description='A DAG to run DBT Cloud job for userdata transformation',
     schedule_interval=timedelta(days=1),
